@@ -80,15 +80,7 @@ export class AppComponent implements OnInit {
             },
             {
               field: 'Sales Area',
-            },
-
-            {
-              field: 'Daypart Type',
-              hide: true,
-            },
-            {
-              field: 'Days',
-              hide: true,
+              enableRowGroup: true,
             },
             {
               field: 'Length',
@@ -107,9 +99,11 @@ export class AppComponent implements OnInit {
             },
             {
               field: 'Start Time',
+              enableRowGroup: true,
             },
             {
               field: 'End Time',
+              enableRowGroup: true,
             },
           ],
         },

@@ -1,0 +1,220 @@
+$main-font: 'xg-roboto', sans-serif;
+
+/* Sizes */
+$extra-small: 10px;
+$small: 13px;
+$medium: 16px;
+$large: 18px;
+$extra-large: 24px;
+$extra-extra-large: 34px;
+
+$weight-light: 300;
+$weight-normal: 400;
+$weight-medium: 500;
+$weight-bold: 700;
+
+/* Colours */
+$primary-1: #2964b1;
+$primary-2: #2079ca;
+$primary-3: #6ea8dc;
+$primary-4: #99c2e7;
+
+$base-0: #ffffff;
+$base-1: #f3f3f3;
+$base-2: #cfcfcf;
+$base-3: #8b8b8b;
+$base-4: #383c3f;
+
+$error-1: #c62828;
+$warning-1: #ffa000;
+$warning-2: #ffe082;
+$success-1: #66bb6a;
+
+$alpha-0: 0;
+$alpha-1: 0.1;
+$alpha-2: 0.2;
+$alpha-3: 0.3;
+$alpha-4: 0.4;
+$alpha-5: 0.5;
+$alpha-6: 0.6;
+$alpha-7: 0.7;
+$alpha-8: 0.8;
+$alpha-9: 0.9;
+$alpha-10: 1;
+
+@mixin loading-mask {
+  width: 100%;
+  padding: 13px 16px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  background: $base-0;
+  z-index: 9;
+  &:empty::after {
+    content: '';
+    display: block;
+    height: 8px;
+    background-image: linear-gradient(
+        90deg,
+        rgba($base-0, 0.2) 0,
+        rgba($base-0, 0.8) 75%,
+        rgba($base-0, 0.9) 100%
+      ),
+      linear-gradient(90deg, $base-2, $base-2, $base-1);
+    animation: loading 7.5s infinite;
+    background-size: 25px 8px, 100% 100%;
+    background-repeat: no-repeat;
+  }
+}
+
+::ng-deep .ag-theme-alpine {
+  font-family: $main-font;
+  /* Loading Bar Skeleton */
+  .loading-text {
+    @include loading-mask;
+  }
+  .ag-ltr .ag-cell {
+    border-right-color: $base-2;
+    &:empty {
+      visibility: hidden;
+    }
+  }
+  .ag-header {
+    background-color: $base-1;
+    border-bottom-color: $base-2;
+  }
+  .ag-set-edited-cell-background {
+    background-color: rgba($success-1, $alpha-3);
+    font-weight: $weight-bold;
+    font-style: italic;
+  }
+  .ag-header-cell {
+    padding-left: 6px;
+    padding-right: 4px;
+    .ag-sort-none-icon {
+      visibility: hidden;
+      .ag-icon.ag-icon-none {
+        width: 8px;
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        font-size: $small;
+        line-height: 8px;
+        display: flex;
+        flex-direction: column;
+        &:after {
+          content: '\f0d7';
+        }
+        &::before {
+          content: '\f0d8';
+        }
+      }
+    }
+    &.align-right {
+      text-align: right;
+    }
+    &.align-center {
+      text-align: center;
+    }
+    &.align-left {
+      text-align: left;
+    }
+    &:hover {
+      .ag-sort-none-icon {
+        visibility: visible;
+      }
+    }
+  }
+  .ag-header-cell-text {
+    font-size: $small;
+    font-weight: $weight-bold;
+    color: $base-4;
+    width: 100%;
+  }
+  .ag-sort-order {
+    order: 4;
+    color: $base-4;
+  }
+  .ag-sort-ascending-icon,
+  .ag-sort-descending-icon,
+  .ag-sort-none-icon {
+    color: $base-4;
+  }
+  .ag-header-cell-resize {
+    &:after {
+      top: 0;
+      height: 100%;
+      width: 1px;
+      background-color: $base-2;
+    }
+  }
+  .ag-row {
+    font-size: $small;
+    font-weight: $weight-normal;
+    color: $base-4;
+    height: 34px !important;
+    border-color: $base-2;
+    .ag-cell {
+      padding-left: 6px;
+      padding-right: 4px;
+      line-height: 34px !important;
+      .ag-selection-checkbox {
+        margin-right: 9px;
+        margin-left: 9px;
+        & + span.ag-cell-value {
+          display: none;
+        }
+      }
+      &.ag-cell-inline-editing {
+        height: 34px !important;
+      }
+      &.ag-cell-focus:not(.ag-cell-range-selected) {
+        border-color: $primary-2;
+        box-shadow: inset 0px 0px 0px 2px $primary-2;
+      }
+      &.align-right {
+        text-align: right;
+      }
+      &.align-center {
+        text-align: center;
+      }
+      &.align-left {
+        text-align: left;
+      }
+      &:empty {
+        visibility: visible;
+      }
+    }
+    &.ag-row-odd,
+    &.ag-row-even {
+      background-color: $base-0;
+    }
+    &.ag-row-hover,
+    &.ag-row-selected {
+      background-color: $base-1;
+    }
+  }
+  &.row-cursor {
+    .ag-row {
+      .ag-cell {
+        &:not(.ag-cell-range-selected) {
+          border-color: transparent $base-2 transparent transparent;
+          box-shadow: none;
+        }
+      }
+      &:focus-within {
+        box-shadow: inset 0px 0px 0px 3px $primary-2;
+      }
+    }
+  }
+  .ag-side-bar {
+    .ag-tool-panel-wrapper {
+      background-color: $base-1;
+      ag-col-picker {
+        width: 100%;
+      }
+    }
+  }
+}

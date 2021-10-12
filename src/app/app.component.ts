@@ -33,6 +33,7 @@ interface IBookingListImportItem {
       (gridReady)="onGridReady($event)"
     ></ag-grid-angular>
   `,
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   private gridApi;
@@ -46,298 +47,114 @@ export class AppComponent implements OnInit {
   private monitorData = [];
 
   constructor(private httpClient: HttpClient) {
-    this.defaultColDef = {};
+    this.defaultColDef = {
+      width: 120,
+      sortable: true,
+      resizable: true,
+    };
     this.gridOptions = {
       rowGroupPanelShow: 'always',
+      suppressAggFuncInHeader: true,
+      rowHeight: 34,
+      rowSelection: 'multiple',
+      checkboxSelection: true,
+      autoGroupColumnDef: {
+        headerName: '',
+        minWidth: 220,
+        cellRendererParams: {
+          suppressCount: true,
+          checkbox: false,
+        },
+      },
       columnDefs: [
         {
-          field: 'Daypart Name',
-        },
-        {
-          field: 'Daypart Type',
-        },
-        {
-          field: 'Days',
-        },
-        {
-          field: 'End Date',
-          rowGroup: true,
-          enableRowGroup: true,
-          hide: false,
-        },
-        {
-          field: 'End Time',
-        },
-        {
-          field: 'End Week No',
-        },
-        {
-          field: 'Length',
-          rowGroup: true,
-          enableRowGroup: true,
-          hide: true,
-        },
-        {
-          field: 'Sales Area',
-        },
-        {
-          field: 'Sales Area Code',
-        },
-        {
-          field: 'Start Date',
-        },
-        {
-          field: 'Start Time',
-        },
-        {
-          field: 'Start Week No',
-        },
-        {
-          field: 'Target Area',
-        },
-        {
-          field: 'Target Area Code',
-        },
-        {
-          field: 'Withdrawn Length',
-        },
-        {
-          field: 'HW - Base CPT',
-        },
-        {
-          field: 'HW - Base CPT Actual',
-        },
-        {
-          field: 'HW - CPT (Actual)',
-        },
-        {
-          field: 'CPT',
-        },
-        {
-          field: 'CPT Index',
-        },
-        {
-          field: 'CPT Index (Actual)',
-        },
-        {
-          field: 'Deal CPT',
-        },
-        {
-          field: 'Deal CPT Index',
-        },
-        {
-          field: 'Deal Net CPT Index',
-        },
-        {
-          field: 'Net CPT',
-        },
-        {
-          field: 'Net CPT Index',
-        },
-        {
-          field: 'Net Deal CPT',
-        },
-        {
-          field: 'HW - +/- Impacts',
-        },
-        {
-          field: 'HW - +/- Impacts Excl Payback',
-        },
-        {
-          field: 'HW - Base Impacts',
-        },
-        {
-          field: 'HW - Base Impacts %',
-        },
-        {
-          field: 'HW - Base Impacts (Actual)',
-        },
-        {
-          field: 'HW - Base Impacts Exc PB',
-        },
-        {
-          field: 'HW - Base Impacts(Actual) %',
-        },
-        {
-          field: 'HW - Impacts',
-        },
-        {
-          field: 'HW - Impacts %',
-        },
-        {
-          field: 'HW - Impacts (Actual)',
-        },
-        {
-          field: 'HW - Impacts Actual (A)',
-        },
-        {
-          field: 'HW - Impacts Actual (P)',
-        },
-        {
-          field: 'HW - Impacts Exc PB',
-        },
-        {
-          field: 'HW - Impacts(Actual) %',
-        },
-        {
-          field: 'HW - Outstanding Impacts',
-        },
-        {
-          field: 'HW - Base CPP',
-        },
-        {
-          field: 'HW - Base CPP Actual',
-        },
-        {
-          field: 'HW - CPP (Actual)',
-        },
-        {
-          field: 'CPP',
-        },
-        {
-          field: 'CPP Index',
-        },
-        {
-          field: 'CPP Index (Actual)',
-        },
-        {
-          field: 'Deal CPP',
-        },
-        {
-          field: 'Deal CPP Index',
-        },
-        {
-          field: 'Deal Net CPP Index',
-        },
-        {
-          field: 'Net CPP',
-        },
-        {
-          field: 'Net CPP Index',
-        },
-        {
-          field: 'Net Deal CPP',
-        },
-        {
-          field: 'HW - Base Ratings',
-        },
-        {
-          field: 'HW - Base Ratings %',
-        },
-        {
-          field: 'HW - Base Ratings (Actual)',
-        },
-        {
-          field: 'HW - Base Ratings Exc PB',
-        },
-        {
-          field: 'HW - Base Ratings(Actual) %',
-        },
-        {
-          field: 'HW - Ratings',
-        },
-        {
-          field: 'HW - Ratings %',
-        },
-        {
-          field: 'HW - Ratings (Actual)',
-        },
-        {
-          field: 'HW - Ratings Exc PB',
-        },
-        {
-          field: 'HW - Ratings(Actual) %',
-        },
-        {
-          field: ' +/-  Ratings Exc PB',
-        },
-        {
-          field: '+/- Base Ratings',
-        },
-        {
-          field: '+/- Ratings',
-        },
-        {
-          field: '+/- Ratings Value',
-        },
-        {
-          field: '+/- Ratings Value Exc PB',
-        },
-        {
-          field: 'Achieved %',
-        },
-        {
-          field: 'Efficiency',
-        },
-        {
-          field: 'Outs Exc PB',
-        },
-        {
-          field: 'Outs',
-        },
-        {
-          field: 'Outstanding Base Ratings',
-        },
-        {
-          field: 'Outstanding Ratings',
-        },
-        {
-          field: 'Weighted Efficiency',
-        },
-        {
-          field: '+/- Base Revenue',
-        },
-        {
-          field: 'Actual Revenue %',
-        },
-        {
-          field: 'Length Weighted Budget',
-        },
-        {
-          field: 'Nominal  Price',
-        },
-        {
-          field: 'Revenue Booked',
-        },
-        {
-          field: 'Revenue Booked %',
-        },
-        {
-          field: 'Revenue Budget',
-        },
-        {
-          field: 'Revenue Budget %',
-        },
-        {
-          field: 'RPM',
-        },
-        {
-          field: 'RPM (Actual)',
-        },
-        {
-          field: '+/- Spots',
-        },
-        {
-          field: 'Spots',
-        },
-        {
-          field: 'Spots %',
-        },
-        {
-          field: 'Spots (Actual)',
-        },
-        {
-          field: 'Spots(Actual) %',
-        },
-        {
-          field: 'Cost Per Spot',
-        },
-        {
-          field: 'Net Cost Per Spot\r',
+          width: 50,
+          checkboxSelection: true,
+        },
+        {
+          headerName: '',
+          children: [
+            {
+              field: 'Target Area',
+              enableRowGroup: true,
+            },
+            {
+              field: 'Sales Area',
+            },
+
+            {
+              field: 'Daypart Type',
+              hide: true,
+            },
+            {
+              field: 'Days',
+              hide: true,
+            },
+            {
+              field: 'Length',
+              rowGroup: true,
+              enableRowGroup: true,
+            },
+            {
+              field: 'Start Date',
+              rowGroup: true,
+              enableRowGroup: true,
+            },
+            {
+              field: 'End Date',
+              rowGroup: true,
+              enableRowGroup: true,
+            },
+            {
+              field: 'Start Time',
+            },
+            {
+              field: 'End Time',
+            },
+          ],
+        },
+        {
+          headerName: 'Ratings',
+          children: [
+            {
+              field: 'HW - Ratings',
+              aggFunc: 'roundSum',
+            },
+            {
+              field: 'HW - Ratings %',
+              aggFunc: 'roundSum',
+            },
+            {
+              field: 'HW - Ratings (Actual)',
+              aggFunc: 'roundSum',
+            },
+            {
+              field: 'HW - Ratings Exc PB',
+              aggFunc: 'roundSum',
+            },
+          ],
+        },
+        {
+          headerName: 'Spots',
+          children: [
+            {
+              field: 'Spots (Actual)',
+              aggFunc: 'roundSum',
+            },
+          ],
         },
       ],
       defaultColDef: {
         flex: 1,
+        enableRowGroup: true,
+      },
+      aggFuncs: {
+        // this overrides the grids built-in sum function
+        roundSum: (params) => {
+          let sum = 0;
+          params.values.forEach((value) => (sum += value));
+          return Math.round(sum * 100) / 100;
+        },
       },
     };
   }

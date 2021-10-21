@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import 'ag-grid-enterprise';
+import { CheckboxRenderer } from './checkbox-renderer.component';
 
 interface IBookingListImportItem {
   'Campaign Number': string;
@@ -43,6 +44,7 @@ export class AppComponent implements OnInit {
   private columnDefs;
   private defaultColDef;
   private gridOptionsApi;
+  private frameworkComponents;
 
   private monitorData = [];
 
@@ -68,10 +70,6 @@ export class AppComponent implements OnInit {
       },
       columnDefs: [
         {
-          width: 50,
-          checkboxSelection: true,
-        },
-        {
           headerName: '',
           children: [
             {
@@ -83,19 +81,53 @@ export class AppComponent implements OnInit {
               enableRowGroup: true,
             },
             {
+              
               field: 'Length',
               rowGroup: true,
               enableRowGroup: true,
+              hide: true,
+              cellRenderer: 'agGroupCellRenderer',
+              cellRendererParams: {
+                suppressCount: true,
+                checkbox: false,
+                innerRenderer: (params) => {
+                  return "Length: " + params.value;
+                },
+                suppressDoubleClickExpand: true,
+                suppressEnterExpand: true,
+              },
             },
             {
               field: 'Start Date',
               rowGroup: true,
               enableRowGroup: true,
+              hide: true,
+              cellRenderer: 'agGroupCellRenderer',
+              cellRendererParams: {
+                suppressCount: true,
+                checkbox: false,
+                innerRenderer: (params) => {
+                  return "Start Date: " + params.value;
+                },
+                suppressDoubleClickExpand: true,
+                suppressEnterExpand: true,
+              }
             },
             {
               field: 'End Date',
               rowGroup: true,
               enableRowGroup: true,
+              hide: true,
+              cellRenderer: 'agGroupCellRenderer',
+              cellRendererParams: {
+                suppressCount: true,
+                checkbox: false,
+                innerRenderer: (params) => {
+                  return "End Date: " + params.value;
+                },
+                suppressDoubleClickExpand: true,
+                suppressEnterExpand: true
+              }
             },
             {
               field: 'Start Time',
@@ -150,6 +182,9 @@ export class AppComponent implements OnInit {
           return Math.round(sum * 100) / 100;
         },
       },
+    };
+    this.frameworkComponents = {
+      checkboxRenderer: CheckboxRenderer,
     };
   }
 

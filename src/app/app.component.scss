@@ -71,6 +71,16 @@ $alpha-10: 1;
 }
 
 ::ng-deep .ag-theme-alpine {
+  .ag-row-group {
+    background-color: $base-1 !important;
+  }
+  .ag-column-drop {
+    background-color: $base-2 !important;
+  }
+  .ag-column-drop-cell {
+    background-color: white;
+  }
+
   font-family: $main-font;
   /* Loading Bar Skeleton */
   .loading-text {
@@ -195,9 +205,6 @@ $alpha-10: 1;
     &.ag-row-selected {
       background-color: $base-1;
     }
-  }
-  .ag-row-group {
-    background-color: $base-1 !important;
   }
   &.row-cursor {
     .ag-row {

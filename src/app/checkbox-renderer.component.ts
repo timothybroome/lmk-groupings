@@ -17,11 +17,13 @@ export class CheckboxRenderer implements ICellRendererAngularComp, OnDestroy {
 
   agInit(params: any): void {
     this.params = params;
+    console.log('params', params);
+    console.log('this.params.column', this.params.column);
   }
 
   checkedHandler(event) {
-      let checked = event.target.checked;
-      let colId = this.params.column.colId;
-      this.params.node.setDataValue(colId, checked);
+    let checked = event.target.checked;
+    let colId = this.params.column.colId;
+    this.params.node.setDataValue(colId, checked);
   }
 }

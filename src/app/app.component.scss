@@ -196,6 +196,9 @@ $alpha-10: 1;
       background-color: $base-1;
     }
   }
+  .ag-row-group {
+    background-color: $base-1 !important;
+  }
   &.row-cursor {
     .ag-row {
       .ag-cell {
